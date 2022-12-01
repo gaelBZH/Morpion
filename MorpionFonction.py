@@ -96,6 +96,7 @@ def matchnul():
         
         
         
+        
 # Tant que : match non nul et aucun gagnant
 while matchnul()==False and Gagne==False: # Joue tant que le jeu n'est pas fini
     
@@ -103,7 +104,7 @@ while matchnul()==False and Gagne==False: # Joue tant que le jeu n'est pas fini
     affichertableau() # Afficher la Grille
     Tour=changertour(Tour) # Changer de Joueur à partir du Joueur actuel
     
-    while JeuBon==False and MatchNul==False:
+    while JeuBon==False and MatchNul==False: # Tant que : Jeu Correct sans Match Nul
         Ligne=ligne() # Demander Ligne
         Colonne=colonne() # Demander Colonne
     
