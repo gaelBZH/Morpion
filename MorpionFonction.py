@@ -31,7 +31,8 @@ def gagne():
 def colonne():
     """Demande la Colonne à l'Utilisateur Tant qu'elle n'est pas correcte. Renvoie le numéro de colonne."""
     Colonne=0
-    while Colonne!=1 and Colonne!=2 and Colonne!=3:
+    c=0
+    while c!=1 and c!=2 and c!=3:
         c=int(input("[{}] Colonne=".format(Tour)))
     return c
 
@@ -39,7 +40,8 @@ def colonne():
 def ligne():
     """Demande la Ligne à l'Utilisateur Tant qu'elle n'est pas correcte. Renvoie le numéro de ligne."""
     Ligne=0
-    while Ligne!=1 and Ligne!=2 and Ligne!=3:
+    l=0
+    while l!=1 and l!=2 and l!=3:
         l=int(input("[{}] Ligne=".format(Tour)))
     return l
         
