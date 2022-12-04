@@ -8,6 +8,9 @@
 
 from os import name
 from os import system
+from random import randint
+from time import sleep
+system('cls' if name == 'nt' else 'clear')
 L0=["1️⃣", "2️⃣", "3️⃣"]
 L1=["⚫", "⚫", "⚫"]
 L2=["⚫", "⚫", "⚫"]
@@ -18,7 +21,6 @@ MatchNul=False
 Ligne=0
 Colonne=0
 Tour="⭕" # Joueur qui ne commence pas
-
 # FONCTION 1
 def gagne():
     """Vérifie toutes les Possibilités de Victoire. Renvoie True ou False selon si il y a un gagnant"""
@@ -94,37 +96,127 @@ def matchnul():
     else:
         return False
         
+# FONCTION 8
+def ordinateurrandom():
+    """Fonction qui joue au morpion aléatoirement. Renvoie None."""
+    S=[] # Ensemble des Solutions Jouables
+    for i in range(3):
+        if L1[i]=="⚫":
+            S.append(1)
+        else:
+            S.append(0)
+    for i in range(3):
+        if L2[i]=="⚫":
+            S.append(1)
+        else:
+            S.append(0)
+    for i in range(3):
+        if L3[i]=="⚫":
+            S.append(1)
+        else:
+            S.append(0)
+    Play=randint(0, 8)
+    while S[Play]!=1:
+        Play=randint(0, 8)
+    if Play==0 or Play==1 or Play==2:
+        L1[Play]="⭕"
+    elif Play==3 or Play==4 or Play==5:
+        L2[Play-3]="⭕"
+    elif Play==6 or Play==7 or Play==8:
+        L3[Play-6]="⭕"
+    print(Play)
 
-        
-        
-        
-        
+# FONCTION 9
+def rules():
+    """Fonction qui affiche les règles du Jeu. Renvoie None."""   
+    print("""Comment jouer au morpion ?\nPour jouer une partie de morpion, il suffit de tracer sur une grille\nde 3 cases sur 3 (selon les variantes, il est possible d’augmenter le nombre de cases).\nLe but du jeu est d’aligner avant son adversaire 3 symboles identiques\nhorizontalement, verticalement ou en diagonale.\nChaque joueur a donc son propre symbole, une croix pour l’un et un\nrond pour l’autre. La partie se termine quand l’un des joueurs à aligné 3 symboles ou\nquand la grille est complétée sans vainqueur. Il y a alors égalité.\n\nComment gagner une partie de Morpion ?\nLe premier joueur à aligner 3 symboles identiques gagne la partie. Attention, le joueur\nqui débute est toujours avantagé pour gagner. Pensez donc à alterner !""")
+
+# FONCTION 10
+def menu():
+    """Fonction qui affiche le Menu. Renvoie l'Action Choisie. [Play-Multi-Rules]"""   
+
+    Menu=["-----------------", "MENU 🌐", "-----------------", "play - Jouer en Solo", "multi - Jouer en mode 2 Joueurs", "rules - Afficher les Règles" ,"exit - Quitter le Jeu"]
+    for i in Menu:
+        print(i)
+    Action=str(input("Séléctionner une Option : "))
+    if Action=='play' or Action=='p' or Action=='P' or Action=='Play' or Action=='PLAY' or Action=='Jouer' or Action=='jouer' or Action=='j' or Action=='J':
+        Action="Play"
+    elif Action=='multi' or Action=='Multi' or Action=='MULTI' or Action=='m' or Action=='M' or Action=='mu' or Action=='Mu' or Action=='MU' or Action=='Multijoueur' or Action=='multijoueur' or Action=='MULTIJOUEUR':
+        Action="Multi"
+    elif Action=='rules' or Action=='r' or Action=='R' or Action=='Rules' or Action=='RULES' or Action=='Règles' or Action=='règles' or Action=='REGLES' or Action=='regles' or Action=='Regles' or Action=='RÈGLES':
+        Action="Rules"
+    else:
+        print("Au Revoir 👋")
+        exit()
+    print("-----------------")
+    system('cls' if name == 'nt' else 'clear')
+    return Action
+
+Action=menu()
+if Action=="Play":
+    Multijoueur=False
+elif Action=="Multi":
+    Multijoueur=True
+elif Action=="Rules":
+    Multijoueur=None
+
+if Multijoueur==True:        
 # Tant que : match non nul et aucun gagnant
-while matchnul()==False and Gagne==False: # Joue tant que le jeu n'est pas fini
-    
-    
-    affichertableau() # Afficher la Grille
-    Tour=changertour(Tour) # Changer de Joueur à partir du Joueur actuel
-    
-    while JeuBon==False and MatchNul==False: # Tant que : Jeu Correct sans Match Nul
-        Ligne=ligne() # Demander Ligne
-        Colonne=colonne() # Demander Colonne
-    
-        JeuBon=jouer(Ligne, Colonne, Tour) # Joue selon les valeurs entrées, retourne True si le jeu est bon, False s'il est mauvais
-        if JeuBon==False:
-            print("Jeu Incorrect : Cette case a dejà été jouée")
-            Ligne=0
-            Colonne=0
-        Gagne=gagne() # Renvoie True ou False si le jeu est terminé
-    JeuBon=False
-    MatchNul=matchnul() # Renvoie True ou False si il ya match nul
-    print(" "), print("------------------------------------"), print(" ")
-    
-    
-    
+    while matchnul()==False and Gagne==False: # Joue tant que le jeu n'est pas fini
+
+
+        affichertableau() # Afficher la Grille
+        Tour=changertour(Tour) # Changer de Joueur à partir du Joueur actuel
+
+        while JeuBon==False and MatchNul==False: # Tant que : Jeu Correct sans Match Nul
+            Ligne=ligne() # Demander Ligne
+            Colonne=colonne() # Demander Colonne
+
+            JeuBon=jouer(Ligne, Colonne, Tour) # Joue selon les valeurs entrées, retourne True si le jeu est bon, False s'il est mauvais
+            if JeuBon==False:
+                print("Jeu Incorrect : Cette case a dejà été jouée")
+                Ligne=0
+                Colonne=0
+            Gagne=gagne() # Renvoie True ou False si le jeu est terminé
+        JeuBon=False
+        MatchNul=matchnul() # Renvoie True ou False si il ya match nul
+        print(" "), print("------------------------------------"), print(" ")
+
+
+if Multijoueur==False:   
+    while matchnul()==False and Gagne==False: # Joue tant que le jeu n'est pas fini
+
+
+        affichertableau() # Afficher la Grille
+        Tour=changertour(Tour) # Changer de Joueur à partir du Joueur actuel
+        if Tour=="❌":
+            while JeuBon==False and MatchNul==False: # Tant que : Jeu Correct sans Match Nul
+                Ligne=ligne() # Demander Ligne
+                Colonne=colonne() # Demander Colonne
+
+                JeuBon=jouer(Ligne, Colonne, Tour) # Joue selon les valeurs entrées, retourne True si le jeu est bon, False s'il est mauvais
+                if JeuBon==False:
+                    print("Jeu Incorrect : Cette case a dejà été jouée")
+                    Ligne=0
+                    Colonne=0
+                Gagne=gagne() # Renvoie True ou False si le jeu est terminé
+        elif Tour=="⭕":
+            print("Jeu de l'Ordinateur ...")
+            sleep(1)
+            ordinateurrandom() # Fait jouer l'ordinateur. Renvoie None.
+            Gagne=gagne() # Renvoie True ou False si le jeu est terminé
+
+        JeuBon=False
+        MatchNul=matchnul() # Renvoie True ou False si il ya match nul
+        print(" "), print("------------------------------------"), print(" ")
+
+if Action=="Rules":
+    rules()
+
 # FIN DU JEU
-affichertableau()
-if MatchNul==False:
-    print("Le Joueur {} a gagné la partie !".format(Tour))
-else:
-    print("Match Nul ! Vous avez fait égalité !")
+if Multijoueur!=None:
+    affichertableau()
+    if MatchNul==False:
+        print("Le Joueur {} a gagné la partie !".format(Tour))
+    else:
+        print("Match Nul ! Vous avez fait égalité !")
