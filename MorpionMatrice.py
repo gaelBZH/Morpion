@@ -11,17 +11,21 @@ from os import system
 from random import randint
 from time import sleep
 system('cls' if name == 'nt' else 'clear')
-L=["🟦", "1️⃣", "2️⃣", "3️⃣"],
-  ["1️⃣", "⚫", "⚫", "⚫"],
-  ["2️⃣", "⚫", "⚫", "⚫"],
-  ["3️⃣", "⚫", "⚫", "⚫"]
+L=[["🟦", "1️⃣", "2️⃣", "3️⃣"],
+["1️⃣", "⚫", "⚫", "⚫"],
+["2️⃣", "⚫", "⚫", "⚫"],
+["3️⃣", "⚫", "⚫", "⚫"]]
+Forme=str(input("Forme Grille [Carré-Rectangle]"))
+if Forme=='Carré' or Forme=='CARRÉ' or Forme=='carré' or Forme=='Carre' or Forme=='CARRE' or Forme=='carre' or Forme=='C' or Forme=='c':
+    Forme=''
+else:
+    Forme='  '
 Gagne=False
 JeuBon=False
 MatchNul=False
 Ligne=0
 Colonne=0
 Tour="⭕" # Joueur qui ne commence pas
-
 # FONCTION 1
 def gagne():
     """Vérifie toutes les Possibilités de Victoire. Renvoie True ou False selon si il y a un gagnant"""
@@ -33,7 +37,6 @@ def gagne():
     or (L[1][3]=="❌" and L[2][3]=="❌" and L[3][3]=="❌")\
     or (L[1][1]=="❌" and L[2][2]=="❌" and L[3][3]=="❌")\
     or (L[1][3]=="❌" and L[2][2]=="❌" and L[3][1]=="❌")\
-
     or (L[1][1]=="⭕" and L[1][2]=="⭕" and L[1][3]=="⭕")\
     or (L[2][1]=="⭕" and L[2][2]=="⭕" and L[2][3]=="⭕")\
     or (L[3][1]=="⭕" and L[3][2]=="⭕" and L[3][3]=="⭕")\
@@ -41,7 +44,7 @@ def gagne():
     or (L[1][2]=="⭕" and L[2][2]=="⭕" and L[3][2]=="⭕")\
     or (L[1][3]=="⭕" and L[2][3]=="⭕" and L[3][3]=="⭕")\
     or (L[1][1]=="⭕" and L[2][2]=="⭕" and L[3][3]=="⭕")\
-    or (L[1][3]=="⭕" and L[2][2]=="⭕" and L[3][1]=="⭕")\
+    or (L[1][3]=="⭕" and L[2][2]=="⭕" and L[3][1]=="⭕"):
         return True
     else:
         return False
@@ -68,8 +71,8 @@ def ligne():
 def affichertableau():
     """Affiche la Grille Actuelle du Morpion. Renvoie None."""
     for i in range(len(L)):
-        for j in range(len(T[0])):
-            print("{:^10}".format(L[i][j]), end=' ')
+        for j in range(len(L[0])):
+            print("{:^0}".format(L[i][j]), end=Forme)
         print(end='\n')
         
 # FONCTION 5
@@ -103,29 +106,20 @@ def matchnul():
 def ordinateurrandom():
     """Fonction qui joue au morpion aléatoirement. Renvoie None."""
     S=[] # Ensemble des Solutions Jouables
-    for i in range(3):
-        if L[1][i]=="⚫":
-            S.append(1)
-        else:
-            S.append(0)
-    for i in range(3):
-        if L[2][i]=="⚫":
-            S.append(1)
-        else:
-            S.append(0)
-    for i in range(3):
-        if L[3][i]=="⚫":
-            S.append(1)
-        else:
-            S.append(0)
-    Play=randint(0, 8)
+    Play=0
+    for i in range(1,4):
+        for j in range(1,4):
+            if L[i][j]=="⚫":
+                S.append(1)
+            else:
+                S.append(0)      
     while S[Play]!=1:
-        Play=randint(0, 8)
-    if Play==0 or Play==1 or Play==2:
+        Play=randint(1, 9)
+    if Play==1 or Play==2 or Play==3:
         L[1][Play]="⭕"
-    elif Play==3 or Play==4 or Play==5:
+    elif Play==4 or Play==5 or Play==6:
         L[2][Play-3]="⭕"
-    elif Play==6 or Play==7 or Play==8:
+    elif Play==7 or Play==8 or Play==9:
         L[3][Play-6]="⭕"
     
 
@@ -155,6 +149,7 @@ def menu():
     system('cls' if name=='nt' else 'clear')
     return Action
 
+  
 Action=menu()
 if Action=="Play":
     Multijoueur=False
