@@ -10,6 +10,7 @@ from os import name
 from os import system
 from random import randint
 from time import sleep
+from Module.py import *
 system('cls' if name == 'nt' else 'clear')
 L=["🟦", "1️⃣", "2️⃣", "3️⃣"],
   ["1️⃣", "⚫", "⚫", "⚫"],
@@ -21,7 +22,6 @@ MatchNul=False
 Ligne=0
 Colonne=0
 Tour="⭕" # Joueur qui ne commence pas
-
 # FONCTION 1
 def gagne():
     """Vérifie toutes les Possibilités de Victoire. Renvoie True ou False selon si il y a un gagnant"""
@@ -104,17 +104,17 @@ def ordinateurrandom():
     """Fonction qui joue au morpion aléatoirement. Renvoie None."""
     S=[] # Ensemble des Solutions Jouables
     for i in range(3):
-        if L1[i]=="⚫":
+        if L[1][i]=="⚫":
             S.append(1)
         else:
             S.append(0)
     for i in range(3):
-        if L2[i]=="⚫":
+        if L[2][i]=="⚫":
             S.append(1)
         else:
             S.append(0)
     for i in range(3):
-        if L3[i]=="⚫":
+        if L[3][i]=="⚫":
             S.append(1)
         else:
             S.append(0)
@@ -122,11 +122,11 @@ def ordinateurrandom():
     while S[Play]!=1:
         Play=randint(0, 8)
     if Play==0 or Play==1 or Play==2:
-        L1[Play]="⭕"
+        L[1][Play]="⭕"
     elif Play==3 or Play==4 or Play==5:
-        L2[Play-3]="⭕"
+        L[2][Play-3]="⭕"
     elif Play==6 or Play==7 or Play==8:
-        L3[Play-6]="⭕"
+        L[3][Play-6]="⭕"
     print(Play)
 
 # FONCTION 9
@@ -152,9 +152,10 @@ def menu():
         print("Au Revoir 👋")
         exit()
     print("-----------------")
-    system('cls' if name == 'nt' else 'clear')
+    system('cls' if name=='nt' else 'clear')
     return Action
 
+  
 Action=menu()
 if Action=="Play":
     Multijoueur=False
