@@ -10,7 +10,6 @@ from os import name
 from os import system
 from random import randint
 from time import sleep
-from Module.py import *
 system('cls' if name == 'nt' else 'clear')
 L=["🟦", "1️⃣", "2️⃣", "3️⃣"],
   ["1️⃣", "⚫", "⚫", "⚫"],
@@ -22,6 +21,7 @@ MatchNul=False
 Ligne=0
 Colonne=0
 Tour="⭕" # Joueur qui ne commence pas
+
 # FONCTION 1
 def gagne():
     """Vérifie toutes les Possibilités de Victoire. Renvoie True ou False selon si il y a un gagnant"""
@@ -127,7 +127,7 @@ def ordinateurrandom():
         L[2][Play-3]="⭕"
     elif Play==6 or Play==7 or Play==8:
         L[3][Play-6]="⭕"
-    print(Play)
+    
 
 # FONCTION 9
 def rules():
@@ -155,7 +155,6 @@ def menu():
     system('cls' if name=='nt' else 'clear')
     return Action
 
-  
 Action=menu()
 if Action=="Play":
     Multijoueur=False
